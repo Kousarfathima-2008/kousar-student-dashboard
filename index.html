@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAMPUS ONE — Dr. RVR NRI COLLEGE x NIAT Student Dashboard</title>
+  <meta name="description" content="Clean & Modern College Student Dashboard for Dr. RVR NRI COLLEGE x NIAT">
+
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+  <div class="app-layout" id="appLayout">
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- ==================== CLEAN SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <a href="#dashboard" class="brand-link">
+          <div class="brand-logo-box">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="brand-info">
+            <span class="brand-name">CAMPUS<strong>ONE</strong></span>
+            <span class="college-subname">Dr. RVR NRI COLLEGE x NIAT</span>
+          </div>
+        </a>
+        <button class="sidebar-toggle-btn desktop-only" id="sidebarCollapseBtn" title="Toggle Sidebar">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+
+      <!-- Student Mini Profile Card -->
+      <div class="sidebar-user">
+        <img src="kousar_profile.png" alt="Kousar Fathima" class="sidebar-user-avatar" id="sidebarAvatar">
+        <div class="sidebar-user-details">
+          <h4 class="sidebar-user-name">Kousar Fathima</h4>
+          <span class="sidebar-user-roll">Roll: 26000605</span>
+          <span class="sidebar-user-dept">1st Year • 1st Semester (CSE)</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-menu">
+        <div class="menu-label">ACADEMICS</div>
+        <ul class="menu-items">
+          <li>
+            <a href="#dashboard" class="menu-link active" data-view="dashboard">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#profile" class="menu-link" data-view="profile">
+              <i class="fa-solid fa-user-graduate"></i>
+              <span>My Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="#attendance" class="menu-link" data-view="attendance">
+              <i class="fa-solid fa-calendar-check"></i>
+              <span>Attendance</span>
+              <span class="pill pill-success">92%</span>
+            </a>
+          </li>
+          <li>
+            <a href="#academics" class="menu-link" data-view="academics">
+              <i class="fa-solid fa-award"></i>
+              <span>Academic Results</span>
+              <span class="pill pill-purple">9.0</span>
+            </a>
+          </li>
+          <li>
+            <a href="#timetable" class="menu-link" data-view="timetable">
+              <i class="fa-solid fa-clock"></i>
+              <span>Timetable</span>
+            </a>
+          </li>
+          <li>
+            <a href="#subjects" class="menu-link" data-view="subjects">
+              <i class="fa-solid fa-book-open"></i>
+              <span>Subjects</span>
+              <span class="pill pill-neutral">6</span>
+            </a>
+          </li>
+          <li>
+            <a href="#assignments" class="menu-link" data-view="assignments">
+              <i class="fa-solid fa-list-check"></i>
+              <span>Assignments</span>
+              <span class="pill pill-warning">2 Due</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="menu-label">PREFERENCES</div>
+        <ul class="menu-items">
+          <li>
+            <a href="#notifications" class="menu-link" data-view="notifications">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notifications</span>
+              <span class="pill pill-danger" id="sidebarNotifCount">4</span>
+            </a>
+          </li>
+          <li>
+            <a href="#announcements" class="menu-link" data-view="announcements">
+              <i class="fa-solid fa-bullhorn"></i>
+              <span>Announcements</span>
+            </a>
+          </li>
+          <li>
+            <a href="#settings" class="menu-link" data-view="settings">
+              <i class="fa-solid fa-sliders"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="academic-year-pill">
+          <i class="fa-regular fa-calendar"></i>
+          <span>Academic Year 2026–2027</span>
+        </div>
+        <button class="sidebar-logout-btn" id="logoutBtn">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span>Sign Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==================== MAIN PAGE WRAPPER ==================== -->
+    <div class="main-wrapper" id="mainWrapper">
+
+      <!-- ==================== CLEAN TOPBAR ==================== -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-toggle-btn" id="mobileMenuBtn" aria-label="Open Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-title-block">
+            <h2 class="topbar-greeting">
+              <span id="greetingText">Good Morning</span>, <span class="highlight-name">Kousar</span> 👋
+            </h2>
+            <p class="topbar-sub">Dr. RVR NRI COLLEGE x NIAT • Roll: <strong>26000605</strong> • 1st Year, 1st Semester</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Clean Search Bar -->
+          <div class="search-box" id="searchContainer">
+            <i class="fa-solid fa-magnifying-glass search-ico"></i>
+            <input type="text" id="globalSearchInput" placeholder="Search courses, faculty, tasks..." autocomplete="off">
+            <span class="search-hint">⌘K</span>
+            <!-- Live Search Dropdown -->
+            <div class="search-dropdown" id="searchResultsDropdown">
+              <div class="search-dropdown-header">
+                <span>Quick Search</span>
+                <span>ESC to close</span>
+              </div>
+              <div class="search-dropdown-list" id="searchResultsList"></div>
+            </div>
+          </div>
+
+          <!-- Theme Mode Switch -->
+          <button class="icon-action-btn" id="themeToggleBtn" title="Toggle Clean Dark / Light Mode">
+            <i class="fa-solid fa-moon dark-icon"></i>
+            <i class="fa-solid fa-sun light-icon"></i>
+          </button>
+
+          <!-- Notification Bell -->
+          <div class="notification-box" id="notifWrapper">
+            <button class="icon-action-btn" id="notifDropdownBtn" title="Notifications">
+              <i class="fa-regular fa-bell"></i>
+              <span class="notif-dot" id="topbarNotifBadge">4</span>
+            </button>
+            <div class="notif-dropdown" id="notifPopover">
+              <div class="notif-header">
+                <h4>Notifications</h4>
+                <button class="text-btn" id="markAllReadBtn">Mark all as read</button>
+              </div>
+              <div class="notif-list" id="notifPopoverList"></div>
+              <div class="notif-footer">
+                <a href="#notifications" class="view-all-link">View All Notifications &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile Dropdown Pill -->
+          <div class="user-pill-container" id="profileMenuContainer">
+            <button class="user-pill" id="profilePillBtn">
+              <img src="kousar_profile.png" alt="Kousar Fathima">
+              <div class="user-pill-info">
+                <span class="user-pill-name">Kousar Fathima</span>
+                <span class="user-pill-role">Roll: 26000605</span>
+              </div>
+              <i class="fa-solid fa-chevron-down pill-arrow"></i>
+            </button>
+            <div class="user-dropdown-menu" id="profileDropdownMenu">
+              <div class="user-dropdown-head">
+                <strong>Kousar Fathima</strong>
+                <span>kousarfathima2008@gmail.com</span>
+                <span class="cgpa-tag"><i class="fa-solid fa-award"></i> CGPA: 9.0</span>
+              </div>
+              <div class="dropdown-line"></div>
+              <a href="#profile" class="user-menu-item" data-view="profile">
+                <i class="fa-regular fa-user"></i> My Profile
+              </a>
+              <a href="#academics" class="user-menu-item" data-view="academics">
+                <i class="fa-regular fa-file-lines"></i> Academic Results
+              </a>
+              <a href="#settings" class="user-menu-item" data-view="settings">
+                <i class="fa-solid fa-gear"></i> Settings
+              </a>
+              <div class="dropdown-line"></div>
+              <button class="user-menu-item text-danger" id="quickLogoutBtn">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+      <main class="page-content" id="mainContent">
+
+        <!-- ================================================================ -->
+        <!-- VIEW 1: CLEAN DASHBOARD                                          -->
+        <!-- ================================================================ -->
+        <section class="view-panel active" id="view-dashboard">
+          
+          <!-- Clean Welcome Banner -->
+          <div class="clean-welcome-card">
+            <div class="welcome-text-col">
+              <div class="welcome-pill">Dr. RVR NRI COLLEGE x NIAT • 1st Year, 1st Semester (2026–2027)</div>
+              <h1 class="welcome-heading">Welcome, <span class="text-primary">Kousar Fathima</span></h1>
+              <p class="welcome-sub">Roll: <strong>26000605</strong> • Department of Computer Science &amp; Engineering. You have <strong>2 lectures</strong> scheduled today and <strong>1 assignment</strong> due tomorrow.</p>
+              <div class="welcome-actions">
+                <button class="btn btn-primary" id="heroSubmitBtn">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Quick Submit Assignment
+                </button>
+                <button class="btn btn-secondary" id="heroViewScheduleBtn">
+                  <i class="fa-regular fa-calendar-days"></i> View Today's Timetable
+                </button>
+              </div>
+            </div>
+            <div class="welcome-side-card">
+              <div class="next-class-badge"><span class="pulse-dot"></span> NEXT UP</div>
+              <h3 class="next-class-title">Problem Solving &amp; Python</h3>
+              <p class="next-class-meta"><i class="fa-solid fa-location-dot"></i> Lab 201, Ramanujan IT Block</p>
+              <p class="next-class-meta"><i class="fa-regular fa-clock"></i> 10:30 AM – 12:00 PM</p>
+              <div class="next-class-faculty">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=80" alt="Evelyn Reed">
+                <div>
+                  <strong>Evelyn Reed</strong>
+                  <span>Head of CSE Lab</span>
+                </div>
+              </div>
+              <div class="next-class-countdown">
+                <span>Starts in:</span>
+                <strong id="heroClassCountdown">42m 15s</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Clean Statistic Cards -->
+          <div class="stat-cards-row">
+            <!-- Card 1 -->
+            <div class="clean-stat-card">
+              <div class="stat-top">
+                <span class="stat-tag">ATTENDANCE</span>
+                <span class="stat-badge success"><i class="fa-solid fa-arrow-up"></i> +2.4%</span>
+              </div>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num" data-target="92" id="statAttendance">0</h2>
+                <span class="stat-unit">%</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-success" style="width: 92%;"></div>
+              </div>
+              <div class="stat-sub">
+                <span>170 / 184 Lectures Attended</span>
+                <a href="#attendance" data-view="attendance">Details &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Card 2: CGPA 9.0 -->
+            <div class="clean-stat-card">
+              <div class="stat-top">
+                <span class="stat-tag">OVERALL CGPA</span>
+                <span class="stat-badge purple"><i class="fa-solid fa-award"></i> 9 Points</span>
+              </div>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num" data-target="9.0" data-decimals="1" id="statCGPA">0.0</h2>
+                <span class="stat-unit">/ 10.0</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-primary" style="width: 90%;"></div>
+              </div>
+              <div class="stat-sub">
+                <span>Distinction • Top 1% Rank</span>
+                <a href="#academics" data-view="academics">Report &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="clean-stat-card">
+              <div class="stat-top">
+                <span class="stat-tag">TOTAL SUBJECTS</span>
+                <span class="stat-badge neutral">22 Credits</span>
+              </div>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num" data-target="6" id="statSubjects">0</h2>
+                <span class="stat-unit">Enrolled</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-purple" style="width: 100%;"></div>
+              </div>
+              <div class="stat-sub">
+                <span>1st Semester Core Courses</span>
+                <a href="#subjects" data-view="subjects">Courses &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="clean-stat-card">
+              <div class="stat-top">
+                <span class="stat-tag">ASSIGNMENTS COMPLETED</span>
+                <span class="stat-badge warning"><i class="fa-solid fa-clock"></i> 2 Pending</span>
+              </div>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num" data-target="18" id="statAssignments">0</h2>
+                <span class="stat-unit">/ 20</span>
+              </div>
+              <div class="stat-bar">
+                <div class="stat-bar-fill bg-warning" style="width: 90%;"></div>
+              </div>
+              <div class="stat-sub">
+                <span>90% Completion Rate</span>
+                <a href="#assignments" data-view="assignments">Review &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Dashboard Split Layout -->
+          <div class="dashboard-split-layout">
+            
+            <!-- Left Large Column -->
+            <div class="split-col-main">
+              <!-- Academic Progression Chart -->
+              <div class="panel-card">
+                <div class="panel-header">
+                  <div>
+                    <h3 class="panel-title">Academic Trajectory (SGPA Progression: 9.0 Points)</h3>
+                    <p class="panel-subtitle">Kousar Fathima compared with Dr. RVR NRI COLLEGE x NIAT cohort average</p>
+                  </div>
+                  <a href="#academics" class="panel-link" data-view="academics">View Breakdown &rarr;</a>
+                </div>
+                <div class="chart-box">
+                  <canvas id="dashboardAcademicChart" height="260"></canvas>
+                </div>
+              </div>
+
+              <!-- Today's Schedule -->
+              <div class="panel-card mt-4">
+                <div class="panel-header">
+                  <div>
+                    <h3 class="panel-title">Today's Class Schedule (Tuesday)</h3>
+                    <p class="panel-subtitle">Dr. RVR NRI COLLEGE x NIAT • Ramanujan IT Block</p>
+                  </div>
+                  <a href="#timetable" class="panel-link" data-view="timetable">Full Week &rarr;</a>
+                </div>
+                <div class="schedule-list" id="todayClassesList"></div>
+              </div>
+            </div>
+
+            <!-- Right Side Column -->
+            <div class="split-col-side">
+              
+              <!-- Attendance Gauge Card -->
+              <div class="panel-card">
+                <div class="panel-header">
+                  <h3 class="panel-title">Attendance Health</h3>
+                  <span class="pill pill-success">Safe Zone</span>
+                </div>
+                <div class="gauge-center-block">
+                  <div class="gauge-svg-wrap">
+                    <svg class="circular-gauge-svg" viewBox="0 0 36 36">
+                      <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                      <path class="gauge-fill" stroke-dasharray="92, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                      <text x="18" y="20.5" class="gauge-text">92%</text>
+                    </svg>
+                  </div>
+                  <div class="gauge-metric-row">
+                    <div class="metric-item">
+                      <span class="metric-num text-success">170</span>
+                      <span class="metric-lbl">Present</span>
+                    </div>
+                    <div class="metric-item">
+                      <span class="metric-num text-danger">14</span>
+                      <span class="metric-lbl">Absent</span>
+                    </div>
+                    <div class="metric-item">
+                      <span class="metric-num text-purple">75%</span>
+                      <span class="metric-lbl">Threshold</span>
+                    </div>
+                  </div>
+                  <p class="gauge-note">You can safely miss up to <strong>12 more lectures</strong> while maintaining the mandatory 75% college requirement.</p>
+                </div>
+              </div>
+
+              <!-- Due Assignments Mini Card -->
+              <div class="panel-card mt-4">
+                <div class="panel-header">
+                  <h3 class="panel-title">Due Assignments</h3>
+                  <a href="#assignments" class="panel-link" data-view="assignments">View (6) &rarr;</a>
+                </div>
+                <div class="mini-assignments-wrap" id="miniAssignmentsList"></div>
+              </div>
+
+              <!-- Campus Bulletins -->
+              <div class="panel-card mt-4">
+                <div class="panel-header">
+                  <h3 class="panel-title">Campus Bulletins</h3>
+                  <a href="#announcements" class="panel-link" data-view="announcements">All &rarr;</a>
+                </div>
+                <div class="mini-bulletins-wrap" id="miniAnnouncementsList"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 2: ATTENDANCE ANALYTICS                                      -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-attendance">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Attendance Analytics &amp; Health</h2>
+              <p class="page-sub">Dr. RVR NRI COLLEGE x NIAT Attendance Portal • Kousar Fathima (Roll: 26000605) • AY 2026–2027</p>
+            </div>
+            <button class="btn btn-secondary" id="downloadAttendanceReportBtn">
+              <i class="fa-solid fa-file-pdf"></i> Export Attendance Report
+            </button>
+          </div>
+
+          <div class="dashboard-split-layout">
+            <!-- Attendance Radial Card -->
+            <div class="panel-card">
+              <h3 class="panel-title">Overall Attendance Ratio</h3>
+              <p class="panel-subtitle">Aggregate across all 6 registered courses in 1st Semester (2026–2027)</p>
+              
+              <div class="attendance-summary-block">
+                <div class="attendance-big-pct">
+                  <span class="big-num">92.4%</span>
+                  <span class="pill pill-success">EXCELLENT</span>
+                </div>
+                <div class="attendance-breakdown-grid">
+                  <div class="breakdown-cell">
+                    <span class="cell-label">Conducted</span>
+                    <strong class="cell-val">184 Classes</strong>
+                  </div>
+                  <div class="breakdown-cell">
+                    <span class="cell-label">Attended</span>
+                    <strong class="cell-val text-success">170 Classes</strong>
+                  </div>
+                  <div class="breakdown-cell">
+                    <span class="cell-label">Missed</span>
+                    <strong class="cell-val text-danger">14 Classes</strong>
+                  </div>
+                  <div class="breakdown-cell">
+                    <span class="cell-label">Duty Leaves</span>
+                    <strong class="cell-val text-purple">4 Approved</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Attendance Simulator -->
+            <div class="panel-card attendance-calc-card">
+              <h3 class="panel-title">Smart Attendance Simulator</h3>
+              <p class="panel-subtitle">Calculate projected attendance % for upcoming classes</p>
+
+              <div class="calc-box">
+                <label>If you attend the next:</label>
+                <div class="stepper-wrap">
+                  <button class="step-btn" id="calcMinusBtn">-</button>
+                  <input type="number" id="calcAttendedInput" value="10" min="0" max="60">
+                  <button class="step-btn" id="calcPlusBtn">+</button>
+                  <span>classes in a row</span>
+                </div>
+
+                <div class="calc-results-row">
+                  <div class="calc-res">
+                    <span>Projected Attendance</span>
+                    <strong class="text-success" id="projectedAttendanceVal">93.8%</strong>
+                  </div>
+                  <div class="calc-res">
+                    <span>Max Allowed Skips</span>
+                    <strong class="text-primary" id="projectedBunksAllowed">15 classes</strong>
+                  </div>
+                </div>
+
+                <div class="calc-notice">
+                  <i class="fa-solid fa-circle-info text-primary"></i>
+                  <span><strong>75% Attendance Requirement:</strong> Mandatory for Midterm &amp; Semester End examinations at Dr. RVR NRI COLLEGE x NIAT.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="dashboard-split-layout mt-4">
+            <div class="panel-card">
+              <div class="panel-header">
+                <div>
+                  <h3 class="panel-title">Monthly Attendance Trend</h3>
+                  <p class="panel-subtitle">Total conducted vs attended lectures</p>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="monthlyAttendanceChart" height="280"></canvas>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Subject-Wise Attendance</h3>
+                <span class="pill pill-neutral">6 Courses</span>
+              </div>
+              <div class="subject-attendance-list" id="subjectAttendanceList"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 3: ACADEMIC RESULTS                                          -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-academics">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Academic Results &amp; Marks</h2>
+              <p class="page-sub">Dr. RVR NRI COLLEGE x NIAT Examination Cell • Cumulative CGPA: 9.0 • Kousar Fathima (Roll: 26000605)</p>
+            </div>
+            <button class="btn btn-primary" id="openTranscriptModalBtn">
+              <i class="fa-solid fa-file-invoice"></i> View Official Grade Sheet
+            </button>
+          </div>
+
+          <!-- Highlights Row: CGPA 9.0 -->
+          <div class="stat-cards-row">
+            <div class="clean-stat-card">
+              <span class="stat-tag">OVERALL CGPA</span>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num text-success">9.00</h2>
+                <span class="stat-unit">/ 10.0</span>
+              </div>
+              <span class="stat-sub text-success">Outstanding • 9 Points</span>
+            </div>
+            <div class="clean-stat-card">
+              <span class="stat-tag">1ST SEMESTER SGPA</span>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num text-primary">9.00</h2>
+                <span class="stat-unit">/ 10.0</span>
+              </div>
+              <span class="stat-sub text-success">Rank 1 in Department</span>
+            </div>
+            <div class="clean-stat-card">
+              <span class="stat-tag">CREDITS EARNED</span>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num">22</h2>
+                <span class="stat-unit">/ 22</span>
+              </div>
+              <span class="stat-sub text-primary">100% 1st Sem Registered</span>
+            </div>
+            <div class="clean-stat-card">
+              <span class="stat-tag">ACADEMIC STANDING</span>
+              <div class="stat-number-wrap">
+                <h2 class="stat-num" style="font-size: 1.5rem;">Distinction</h2>
+              </div>
+              <span class="stat-sub text-warning">Gold Medalist Trajectory</span>
+            </div>
+          </div>
+
+          <div class="dashboard-split-layout mt-4">
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Assessment Progression (9.0 Points Track)</h3>
+                <span class="pill pill-purple">1st Semester (2026–2027)</span>
+              </div>
+              <div class="chart-box">
+                <canvas id="semesterProgressionChart" height="280"></canvas>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <div class="panel-header">
+                <h3 class="panel-title">Grade Distribution</h3>
+                <span class="pill pill-neutral">6 Subjects</span>
+              </div>
+              <div class="chart-box">
+                <canvas id="gradeDistributionChart" height="280"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marks Table -->
+          <div class="panel-card mt-4">
+            <div class="panel-header">
+              <div>
+                <h3 class="panel-title">1st Semester Marks &amp; Internal Grades (2026–2027)</h3>
+                <p class="panel-subtitle">Continuous internal assessment and projected grades</p>
+              </div>
+              <div class="clean-search-pill">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="marksTableSearch" placeholder="Filter courses...">
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="clean-table" id="academicMarksTable">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Subject Name</th>
+                    <th>Credits</th>
+                    <th>Midterm (30)</th>
+                    <th>Assignments (20)</th>
+                    <th>Quiz (20)</th>
+                    <th>Total Internal (70)</th>
+                    <th>Grade</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="academicMarksTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 4: WEEKLY TIMETABLE                                         -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-timetable">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Weekly Class Timetable</h2>
+              <p class="page-sub">Dr. RVR NRI COLLEGE x NIAT • 1st Year, 1st Semester • Department of CSE</p>
+            </div>
+            <div class="segmented-control">
+              <button class="seg-btn active" id="viewModeDayBtn">Day View</button>
+              <button class="seg-btn" id="viewModeGridBtn">Full Week Grid</button>
+            </div>
+          </div>
+
+          <!-- Weekday Tabs -->
+          <div class="weekday-tabs" id="timetableDayTabs">
+            <button class="day-btn" data-day="monday">
+              <strong>MON</strong>
+              <span>Monday</span>
+            </button>
+            <button class="day-btn active" data-day="tuesday">
+              <strong>TUE</strong>
+              <span>Tuesday (Today)</span>
+            </button>
+            <button class="day-btn" data-day="wednesday">
+              <strong>WED</strong>
+              <span>Wednesday</span>
+            </button>
+            <button class="day-btn" data-day="thursday">
+              <strong>THU</strong>
+              <span>Thursday</span>
+            </button>
+            <button class="day-btn" data-day="friday">
+              <strong>FRI</strong>
+              <span>Friday</span>
+            </button>
+            <button class="day-btn" data-day="saturday">
+              <strong>SAT</strong>
+              <span>Saturday</span>
+            </button>
+          </div>
+
+          <div id="timetableDayView">
+            <div class="schedule-timeline" id="timetableTimeline"></div>
+          </div>
+
+          <div class="hidden" id="timetableGridView">
+            <div class="panel-card table-wrap">
+              <table class="clean-table matrix-table" id="timetableMatrixTable">
+                <thead>
+                  <tr>
+                    <th>Time Slot</th>
+                    <th>Monday</th>
+                    <th class="col-active">Tuesday (Today)</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                  </tr>
+                </thead>
+                <tbody id="timetableMatrixBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 5: SUBJECTS & CURRICULUM                                    -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-subjects">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">1st Semester Enrolled Subjects</h2>
+              <p class="page-sub">Dr. RVR NRI COLLEGE x NIAT • B.Tech Computer Science &amp; Engineering • AY 2026–2027</p>
+            </div>
+            <div class="segmented-control subject-filter-pills">
+              <button class="seg-btn active filter-pill" data-filter="all">All (6)</button>
+              <button class="seg-btn filter-pill" data-filter="core">Core (4)</button>
+              <button class="seg-btn filter-pill" data-filter="elective">Foundation (2)</button>
+            </div>
+          </div>
+
+          <div class="subjects-cards-grid" id="subjectsGrid"></div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 6: UPCOMING ASSIGNMENTS                                     -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-assignments">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Upcoming Coursework &amp; Assignments</h2>
+              <p class="page-sub">Submissions, deadlines and rubrics for Kousar Fathima (Roll: 26000605)</p>
+            </div>
+            <div class="segmented-control assignment-filter-tabs">
+              <button class="seg-btn active filter-tab-btn" data-filter="all">All (6)</button>
+              <button class="seg-btn filter-tab-btn" data-filter="pending">Pending (2)</button>
+              <button class="seg-btn filter-tab-btn" data-filter="in_progress">In Progress (2)</button>
+              <button class="seg-btn filter-tab-btn" data-filter="submitted">Submitted (18)</button>
+            </div>
+          </div>
+
+          <div class="assignments-cards-grid" id="assignmentsGrid"></div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 7: NOTIFICATIONS & ALERTS                                   -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-notifications">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Notifications &amp; Alerts</h2>
+              <p class="page-sub">Official updates from Dr. RVR NRI COLLEGE x NIAT Administration</p>
+            </div>
+            <button class="btn btn-secondary" id="markAllNotificationsPageBtn">
+              <i class="fa-solid fa-check-double"></i> Mark All as Read
+            </button>
+          </div>
+
+          <div class="notif-filter-chips">
+            <button class="chip-btn active chip-filter" data-type="all">All</button>
+            <button class="chip-btn chip-filter" data-type="academic">Academic</button>
+            <button class="chip-btn chip-filter" data-type="exam">Examinations</button>
+            <button class="chip-btn chip-filter" data-type="event">Campus Events</button>
+            <button class="chip-btn chip-filter" data-type="alert">Urgent</button>
+          </div>
+
+          <div class="full-notifications-wrap" id="fullNotificationsList"></div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 8: ANNOUNCEMENTS                                            -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-announcements">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Dr. RVR NRI COLLEGE x NIAT Bulletins</h2>
+              <p class="page-sub">Official campus circulars, orientation sessions, and academic symposiums</p>
+            </div>
+            <span class="pill pill-primary"><i class="fa-solid fa-calendar-check"></i> Academic Year 2026–2027</span>
+          </div>
+
+          <div class="announcements-cards-grid" id="announcementsGrid"></div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 9: STUDENT PROFILE                                          -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-profile">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Student Profile &amp; ID Dossier</h2>
+              <p class="page-sub">Official academic details for Kousar Fathima • Roll Number: 26000605</p>
+            </div>
+            <button class="btn btn-primary" id="openDigitalIdModalBtn">
+              <i class="fa-solid fa-id-card"></i> Digital Student ID Card
+            </button>
+          </div>
+
+          <!-- Clean Profile Header Card with User's Photo -->
+          <div class="clean-profile-hero">
+            <div class="profile-hero-inner">
+              <img src="kousar_profile.png" alt="Kousar Fathima" class="profile-big-avatar">
+              <div class="profile-hero-content">
+                <div class="profile-name-row">
+                  <h1 class="profile-user-name">Kousar Fathima</h1>
+                  <span class="pill pill-success"><i class="fa-solid fa-circle-check"></i> 1st Year • 1st Semester</span>
+                  <span class="pill pill-purple">CGPA: 9.0</span>
+                </div>
+                <p class="profile-branch">Bachelor of Technology in Computer Science &amp; Engineering</p>
+                <div class="profile-quick-tags">
+                  <span><strong>Roll No:</strong> 26000605</span>
+                  <span>•</span>
+                  <span><strong>College:</strong> Dr. RVR NRI COLLEGE x NIAT</span>
+                  <span>•</span>
+                  <span><strong>Calendar:</strong> 2026–2027</span>
+                  <span>•</span>
+                  <span><strong>CGPA:</strong> 9.00</span>
+                </div>
+              </div>
+              <div class="profile-hero-btn-col">
+                <button class="btn btn-secondary" id="profileDownloadTranscriptBtn">
+                  <i class="fa-solid fa-download"></i> Official Transcript (PDF)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clean Info Grid with exact user details -->
+          <div class="dashboard-split-layout mt-4">
+            <div class="panel-card">
+              <h3 class="panel-title mb-3"><i class="fa-regular fa-address-card text-primary"></i> Personal Information</h3>
+              <div class="info-list">
+                <div class="info-row">
+                  <span class="info-key">Full Name</span>
+                  <strong class="info-value">Kousar Fathima</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Roll Number</span>
+                  <strong class="info-value text-primary font-mono">26000605</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Email Address</span>
+                  <strong class="info-value">kousarfathima2008@gmail.com</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Date of Birth</span>
+                  <strong class="info-value font-mono">13/08/2008</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Blood Group</span>
+                  <strong class="info-value text-danger font-bold">B+</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Phone Number</span>
+                  <strong class="info-value">+91 98765 43210</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Campus Residence</span>
+                  <strong class="info-value">Dr. RVR NRI Hostel, Wing B, Room 204</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h3 class="panel-title mb-3"><i class="fa-solid fa-building-columns text-purple"></i> Academic &amp; Institutional Details</h3>
+              <div class="info-list">
+                <div class="info-row">
+                  <span class="info-key">Institution</span>
+                  <strong class="info-value">Dr. RVR NRI COLLEGE x NIAT</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Degree Program</span>
+                  <strong class="info-value">B.Tech Computer Science &amp; Engineering</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Current Year &amp; Semester</span>
+                  <strong class="info-value text-primary">First Year • 1st Semester</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Academic Calendar</span>
+                  <strong class="info-value">2026–2027</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Faculty Advisor</span>
+                  <strong class="info-value">Evelyn Reed (Email: evelyn.reed@rvrnri.edu.in)</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Cumulative CGPA</span>
+                  <strong class="info-value text-success font-bold">9.00 / 10.0 (9 Points)</strong>
+                </div>
+                <div class="info-row">
+                  <span class="info-key">Credits Registered</span>
+                  <strong class="info-value">22 Credits</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recognition Badges -->
+          <div class="panel-card mt-4">
+            <h3 class="panel-title mb-3"><i class="fa-solid fa-award text-warning"></i> Co-Curricular Recognitions &amp; Badges</h3>
+            <div class="badges-clean-grid">
+              <div class="badge-clean-box">
+                <i class="fa-solid fa-medal text-warning"></i>
+                <div>
+                  <strong>Dean's Honor List</strong>
+                  <span>9.0 Points Academic Distinction</span>
+                </div>
+              </div>
+              <div class="badge-clean-box">
+                <i class="fa-solid fa-code text-primary"></i>
+                <div>
+                  <strong>Freshman Coding Champion</strong>
+                  <span>Dr. RVR NRI COLLEGE x NIAT Hackathon</span>
+                </div>
+              </div>
+              <div class="badge-clean-box">
+                <i class="fa-brands fa-github text-purple"></i>
+                <div>
+                  <strong>Open Source Contributor</strong>
+                  <span>Python &amp; AI Algorithms Mentee</span>
+                </div>
+              </div>
+              <div class="badge-clean-box">
+                <i class="fa-solid fa-users text-success"></i>
+                <div>
+                  <strong>ACM Student Member</strong>
+                  <span>Dr. RVR NRI COLLEGE x NIAT Chapter</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================ -->
+        <!-- VIEW 10: SETTINGS                                                -->
+        <!-- ================================================================ -->
+        <section class="view-panel" id="view-settings">
+          <div class="panel-title-bar">
+            <div>
+              <h2 class="page-heading">Portal Preferences &amp; Settings</h2>
+              <p class="page-sub">Customise your portal experience for Kousar Fathima (Roll: 26000605)</p>
+            </div>
+            <button class="btn btn-primary" id="saveAllSettingsBtn">
+              <i class="fa-solid fa-floppy-disk"></i> Save Preferences
+            </button>
+          </div>
+
+          <div class="dashboard-split-layout">
+            <div class="panel-card">
+              <h3 class="panel-title mb-3">Appearance</h3>
+              <div class="setting-row">
+                <div>
+                  <strong>Interface Theme</strong>
+                  <p class="setting-desc">Switch between Clean Dark and Royal Light mode</p>
+                </div>
+                <div class="segmented-control">
+                  <button class="seg-btn active" id="btnThemeDark">Dark</button>
+                  <button class="seg-btn" id="btnThemeLight">Light</button>
+                </div>
+              </div>
+              <div class="setting-row">
+                <div>
+                  <strong>Compact Sidebar</strong>
+                  <p class="setting-desc">Default sidebar into icon mode on wide screens</p>
+                </div>
+                <label class="clean-switch">
+                  <input type="checkbox" id="settingSidebarExpanded">
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h3 class="panel-title mb-3">Notifications</h3>
+              <div class="setting-row">
+                <div>
+                  <strong>Attendance Alerts</strong>
+                  <p class="setting-desc">Alert when subject attendance falls below 80%</p>
+                </div>
+                <label class="clean-switch">
+                  <input type="checkbox" id="settingNotifAttendance" checked>
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+              <div class="setting-row">
+                <div>
+                  <strong>Assignment Deadlines</strong>
+                  <p class="setting-desc">Reminders 24 hours prior to deadline</p>
+                </div>
+                <label class="clean-switch">
+                  <input type="checkbox" id="settingNotifAssignments" checked>
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Clean Footer -->
+      <footer class="clean-footer">
+        <div>
+          <span>&copy; 2026–2027 <strong>Dr. RVR NRI COLLEGE x NIAT</strong>. CAMPUS ONE Portal.</span>
+          <span class="footer-dot">•</span>
+          <span>Student: Kousar Fathima (Roll: 26000605) • First Year, 1st Semester</span>
+        </div>
+        <div class="footer-links">
+          <a href="#dashboard" data-view="dashboard">Dashboard</a>
+          <a href="#timetable" data-view="timetable">Timetable</a>
+          <a href="#settings" data-view="settings">Settings</a>
+          <a href="javascript:void(0)" id="footerHelpBtn">Help Desk</a>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ==================== CLEAN MODALS ==================== -->
+
+  <!-- 1. Assignment Submit Modal -->
+  <div class="modal-backdrop" id="assignmentSubmitModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="pill pill-primary" id="submitModalSubjectTag">Python Programming</span>
+          <h3 class="modal-title" id="submitModalTitle">Submit Assignment</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal="assignmentSubmitModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-info-box mb-3">
+          <p id="submitModalDesc">Please package your solution source code along with a comprehensive benchmarking PDF report.</p>
+          <div class="info-flex-row mt-2">
+            <span><strong>Deadline:</strong> <span id="submitModalDeadline">Tomorrow, 11:59 PM</span></span>
+            <span><strong>Weightage:</strong> <span id="submitModalWeight">15%</span></span>
+          </div>
+        </div>
+
+        <div class="dropzone-area" id="modalDropzone">
+          <i class="fa-solid fa-cloud-arrow-up dropzone-icon"></i>
+          <h4>Drag &amp; Drop solution files here</h4>
+          <p>or <button type="button" class="dropzone-browse-btn" id="dropzoneBrowseBtn">browse files from computer</button></p>
+          <span class="dropzone-hint">Supports .ZIP, .PDF, .IPYNB, .PY, .JAVA (Max 50MB)</span>
+          <input type="file" id="modalFileInput" style="display: none;" multiple>
+        </div>
+
+        <div class="staged-files-list" id="stagedFilesList"></div>
+
+        <div class="form-group mt-3">
+          <label class="form-label">Submission Comments / Git Repository URL (Optional):</label>
+          <textarea id="submissionNotes" class="form-input" rows="2" placeholder="e.g. GitHub: https://github.com/kousarfathima/python-algorithms..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="assignmentSubmitModal">Cancel</button>
+        <button class="btn btn-primary" id="confirmSubmitAssignmentBtn">Confirm &amp; Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Assignment Details Modal -->
+  <div class="modal-backdrop" id="assignmentDetailsModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <span class="pill pill-primary" id="detailModalSubjectTag">Coursework</span>
+          <h3 class="modal-title" id="detailModalTitle">Assignment Details</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal="assignmentDetailsModal">&times;</button>
+      </div>
+      <div class="modal-body" id="detailModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="assignmentDetailsModal">Close</button>
+        <button class="btn btn-primary" id="detailModalActionSubmitBtn">Proceed to Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Subject Curriculum Modal -->
+  <div class="modal-backdrop" id="subjectSyllabusModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <span class="pill pill-primary" id="syllabusModalCode">CS-101</span>
+          <h3 class="modal-title" id="syllabusModalTitle">Course Syllabus</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal="subjectSyllabusModal">&times;</button>
+      </div>
+      <div class="modal-body" id="syllabusModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="subjectSyllabusModal">Close</button>
+        <button class="btn btn-primary" id="downloadSyllabusPdfBtn">Download Course Pack (PDF)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Digital ID Card Modal (Dr. RVR NRI COLLEGE x NIAT) -->
+  <div class="modal-backdrop" id="digitalIdModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3 class="modal-title">Official Student ID Card</h3>
+        <button class="modal-close-btn" data-close-modal="digitalIdModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="smart-id-card" id="printableIdCard">
+          <div class="id-header">
+            <h4>Dr. RVR NRI COLLEGE x NIAT</h4>
+            <p>DEPARTMENT OF COMPUTER SCIENCE &amp; ENGINEERING</p>
+          </div>
+          <div class="id-body">
+            <img src="kousar_profile.png" alt="Kousar Fathima" class="id-photo">
+            <div class="id-details">
+              <h3>KOUSAR FATHIMA</h3>
+              <p class="id-prog">B.Tech • 1st Year, 1st Semester</p>
+              <div class="id-grid">
+                <div>
+                  <span class="id-lbl">ROLL NO:</span>
+                  <strong class="text-primary font-mono">26000605</strong>
+                </div>
+                <div>
+                  <span class="id-lbl">CALENDAR:</span>
+                  <strong>2026–2027</strong>
+                </div>
+                <div>
+                  <span class="id-lbl">DOB:</span>
+                  <strong>13/08/2008</strong>
+                </div>
+                <div>
+                  <span class="id-lbl">BLOOD GRP:</span>
+                  <strong class="text-danger">B+</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="id-footer">
+            <span class="barcode-text">*26000605*</span>
+            <span class="pill pill-success">VERIFIED</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="digitalIdModal">Close</button>
+        <button class="btn btn-primary" id="printIdCardBtn"><i class="fa-solid fa-print"></i> Print Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Official Transcript Modal -->
+  <div class="modal-backdrop" id="transcriptModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header">
+        <div>
+          <span class="pill pill-primary">OFFICIAL TRANSCRIPT</span>
+          <h3 class="modal-title">Cumulative Grade Sheet</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal="transcriptModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="transcript-paper" id="printableTranscriptArea">
+          <div class="transcript-head text-center">
+            <h3>Dr. RVR NRI COLLEGE x NIAT</h3>
+            <p>Office of Controller of Examinations • Academic Calendar 2026–2027</p>
+            <div class="transcript-meta mt-3">
+              <div><strong>Student Name:</strong> Kousar Fathima</div>
+              <div><strong>Roll Number:</strong> 26000605</div>
+              <div><strong>Program:</strong> B.Tech in CSE (1st Year, 1st Sem)</div>
+              <div><strong>Cumulative CGPA:</strong> <strong class="text-success font-bold">9.00 / 10.0 (9 Points)</strong></div>
+            </div>
+          </div>
+          <table class="clean-table mt-4">
+            <thead>
+              <tr>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Credits</th>
+                <th>Grade Point</th>
+                <th>Letter Grade</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>CS-101</td><td>Problem Solving &amp; Python Programming</td><td>4</td><td>10.0</td><td><span class="pill pill-purple">O</span></td><td><span class="pill pill-success">PASS</span></td></tr>
+              <tr><td>MA-101</td><td>Engineering Mathematics &amp; Calculus</td><td>4</td><td>9.0</td><td><span class="pill pill-success">A+</span></td><td><span class="pill pill-success">PASS</span></td></tr>
+              <tr><td>CS-102</td><td>Digital Logic &amp; Computer Organization</td><td>4</td><td>9.0</td><td><span class="pill pill-success">A+</span></td><td><span class="pill pill-success">PASS</span></td></tr>
+              <tr><td>CS-103</td><td>Data Structures &amp; Algorithms Lab</td><td>4</td><td>10.0</td><td><span class="pill pill-purple">O</span></td><td><span class="pill pill-success">PASS</span></td></tr>
+              <tr><td>EE-101</td><td>Basic Electrical &amp; Electronics</td><td>3</td><td>8.0</td><td><span class="pill pill-primary">A</span></td><td><span class="pill pill-success">PASS</span></td></tr>
+              <tr class="highlight-row"><td>EN-101</td><td>Technical English &amp; Communication</td><td>3</td><td>9.0</td><td><span class="pill pill-success">A+</span></td><td><span class="pill pill-success">PASS</span></td></tr>
+            </tbody>
+          </table>
+          <div class="text-right mt-3" style="text-align: right; font-size: 0.9rem;">
+            <strong>Total Credits: 22 | Semester GPA: <span class="text-success">9.00</span> | Result: <span class="pill pill-success">DISTINCTION</span></strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-close-modal="transcriptModal">Close</button>
+        <button class="btn btn-primary" id="printTranscriptBtn"><i class="fa-solid fa-print"></i> Print Transcript</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. Logout Modal -->
+  <div class="modal-backdrop" id="logoutModal">
+    <div class="modal-card modal-sm text-center">
+      <div class="modal-body py-4">
+        <i class="fa-solid fa-arrow-right-from-bracket fa-3x text-danger mb-3"></i>
+        <h3 class="modal-title mb-2">Sign Out of CAMPUS ONE?</h3>
+        <p class="text-muted">Ending session for Kousar Fathima (Roll: 26000605) at Dr. RVR NRI COLLEGE x NIAT.</p>
+      </div>
+      <div class="modal-footer justify-center">
+        <button class="btn btn-secondary" data-close-modal="logoutModal">Stay Logged In</button>
+        <button class="btn btn-danger" id="confirmLogoutActionBtn">Sign Out</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
